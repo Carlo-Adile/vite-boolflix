@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios'
-import { mapState } from  'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: "Main",
   data() {
     return {
-      
+
     }
   },
   computed: {
@@ -20,14 +20,26 @@ export default {
   <div id="site_main">
     <h4>Main: Cards</h4>
     <div v-if="searchResults.length > 0">
-      <ul>
-        <li v-for="(result, index) in searchResults" :key="index">
+      <div class="card-container">
+        <div v-for="(result, index) in searchResults" :key="index" class="card">
           <h2>{{ result.title }}</h2>
           <p>Titolo in lingua originale: {{ result.original_title }}</p>
           <p>Lingua: {{ result.original_language }}</p>
           <p>Recensione: {{ result.vote_average }} </p>
-        </li>
-      </ul>
+        </div>
+        
+        <!-- <ul>
+          <li v-for="(result, index) in searchResults" :key="index">
+            <h2>{{ result.title }}</h2>
+            <p>Titolo in lingua originale: {{ result.original_title }}</p>
+            <p>Lingua: {{ result.original_language }}</p>
+            <p>Recensione: {{ result.vote_average }} </p>
+          </li>
+        </ul> -->
+
+
+      </div>
+
     </div>
     <div v-else>
       <p>prova ad effettuare una ricerca tramite la navbar</p>

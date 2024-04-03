@@ -31,7 +31,7 @@ export default {
         .then(response => {
           console.log(response.data);
           const results = response.data.results;
-          
+
           /* aggiorniamo state */
           this.$store.commit('updateSearchResults', results);
         })
@@ -45,14 +45,13 @@ export default {
 
 <template>
   <div id="site_header">
-    <h4>Header: Navbar</h4>
-    <nav class="navbar expand-lg p-4">
+    <nav class="navbar bg-body-tertiary expand-lg p-4 mx-auto">
       <a href="#" class="navbar-brand">
         <img src="../assets/vue.svg" alt="logo" width="30" height="24" class="d-inline-block align-text-top">
-        Navbar Logo</a>
-
+        Navbar Logo
+      </a>
       <!-- form per cercare film -->
-      <form role="search" class="d-flex" @submit.prevent="search">
+      <form role="search" class="d-flex" @submit.prevent="search" id="my_form">
         <input v-model="searchQuery" class="form-control me-2" type="search" placeholder="Cerca un film tramite API!"
           aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -65,13 +64,13 @@ export default {
 <style lang="scss" scoped>
 #site_header {
   width: 100%;
-  height: 200px;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  padding: 1rem;
   border: 1px dashed black;
 }
+
+#my_form{
+  input{
+    width: 350px;
+  }
+}
+
 </style>
