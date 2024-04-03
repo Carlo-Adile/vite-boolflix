@@ -12,6 +12,29 @@ export default {
   computed: {
     /* ottieni i dati da state */
     ...mapState(['searchResults'])
+  },
+  methods: {
+    /* passiamo result.original_language come parametro */
+    getFlagUrl(countryCode) {
+      if (countryCode === 'en') {
+        return `https://flagcdn.com/w40/gb.png`
+      } else if(countryCode === 'ja'){
+        return `https://flagcdn.com/w40/jp.png`
+      } else if(countryCode === 'zh'){
+        return `https://flagcdn.com/w40/cn.png`
+      } else if(countryCode === 'ko'){
+        return `https://flagcdn.com/w40/kr.png`
+      } else if(countryCode === 'jv'){
+        return `https://flagcdn.com/w40/id.png`
+      } else if(countryCode === 'xx'){
+        return `https://flagcdn.com/w40/gb.png`
+      }
+
+      else {
+        return `https://flagcdn.com/w40/${countryCode}.png`;
+      }
+
+    }
   }
 }
 </script>
@@ -24,20 +47,13 @@ export default {
         <div v-for="(result, index) in searchResults" :key="index" class="card">
           <h2>{{ result.title }}</h2>
           <p>Titolo in lingua originale: {{ result.original_title }}</p>
-          <p>Lingua: {{ result.original_language }}</p>
+          <p>{{ result.media_type }}</p>
+          <!-- con immagine dinamica -->
+          <p>Lingua: {{ result.original_language }}
+            <img :src="getFlagUrl(result.original_language)" width="36" height="27">
+          </p> 
           <p>Recensione: {{ result.vote_average }} </p>
         </div>
-        
-        <!-- <ul>
-          <li v-for="(result, index) in searchResults" :key="index">
-            <h2>{{ result.title }}</h2>
-            <p>Titolo in lingua originale: {{ result.original_title }}</p>
-            <p>Lingua: {{ result.original_language }}</p>
-            <p>Recensione: {{ result.vote_average }} </p>
-          </li>
-        </ul> -->
-
-
       </div>
 
     </div>
