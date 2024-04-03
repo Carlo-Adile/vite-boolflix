@@ -15,12 +15,11 @@ export default {
   methods: {
     search() {
       console.log("query inserita...", this.searchQuery);
-      const apiKey = '656ef96b561e171489e8fb7cad6e10ac';
 
       /* chiamata get all'API tramite axios */
-      axios.get('https://api.themoviedb.org/3/search/movie', {
+      axios.get('https://api.themoviedb.org/3/search/multi', {
         params: {
-          api_key: apiKey,
+          api_key: '656ef96b561e171489e8fb7cad6e10ac',
           query: this.searchQuery,
           include_adult: 'true',
           language: 'en-US',
