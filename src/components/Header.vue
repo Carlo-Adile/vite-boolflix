@@ -16,7 +16,6 @@ export default {
     search() {
       console.log("query inserita...", this.searchQuery);
       const apiKey = '656ef96b561e171489e8fb7cad6e10ac';
-      const url = 'https://api.themoviedb.org/3/search/movie';
 
       /* chiamata get all'API tramite axios */
       axios.get('https://api.themoviedb.org/3/search/movie', {
