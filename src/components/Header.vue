@@ -28,7 +28,9 @@ export default {
       })
         .then(response => {
           console.log(response.data);
-          const results = response.data.results;
+          const results = response.data.results.map(result => ({ 
+            ...result, poster_url: result.poster_path ? `https://image.tmdb.org/t/p/w342/${result.poster_path}` : null
+          }));
 
           /* aggiorniamo state */
           this.$store.commit('updateSearchResults', results);
