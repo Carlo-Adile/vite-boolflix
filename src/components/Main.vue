@@ -6,7 +6,7 @@ export default {
   name: "Main",
   data() {
     return {
-      
+
     }
   },
   computed: {
@@ -15,29 +15,29 @@ export default {
   },
   methods: {
     calcReviewStar(voteAverage) {
-  const stars = voteAverage / 2;
-  const parsedStars = Math.floor(stars);
+      const stars = voteAverage / 2;
+      const parsedStars = Math.floor(stars);
 
-  const faFullStar = "fa-solid fa-star";
-  const faHalfStar = "fa-solid fa-star-half-alt";
-  const faEmptyStar = "fa-regular fa-star";
+      const faFullStar = "fa-solid fa-star";
+      const faHalfStar = "fa-solid fa-star-half-alt";
+      const faEmptyStar = "fa-regular fa-star";
 
 
-  /* ogni iterazione crea un array di icone  */
-  const templateStars = [];
+      /* ogni iterazione crea un array di icone  */
+      const templateStars = [];
 
-  for (let i = 0; i < parsedStars; i++) {
-    templateStars.push(faFullStar);
-  }
-  if (stars % 1 !== 0) {
-    templateStars.push(faHalfStar);
-  }
-  while (templateStars.length < 5) {
-    templateStars.push(faEmptyStar);
-  }
+      for (let i = 0; i < parsedStars; i++) {
+        templateStars.push(faFullStar);
+      }
+      if (stars % 1 !== 0) {
+        templateStars.push(faHalfStar);
+      }
+      while (templateStars.length < 5) {
+        templateStars.push(faEmptyStar);
+      }
 
-  return templateStars;
-},
+      return templateStars;
+    },
     /* passiamo result.original_language come parametro */
     getFlagUrl(countryCode) {
       if (countryCode === 'en') {
@@ -64,30 +64,31 @@ export default {
 
 <template>
   <div id="site_main">
-    <h4>Main: Cards</h4>
-    <div v-if="searchResults.length > 0">
-      <div class="card-container">
-        <div v-for="(result, index) in searchResults" :key="index" class="card">
-          <div class="card-header">
-            <img :src="result.poster_url" alt="">
-          </div>
-          <div class="card-body">
-            <h2>{{ result.title }}</h2>
-            <p>Titolo in lingua originale: {{ result.original_title }}</p>
-            <p>{{ result.media_type }}</p>
-            <!-- con immagine dinamica -->
-            <p>Lingua: {{ result.original_language }}
-              <img :src="getFlagUrl(result.original_language)" width="36" height="27">
-            </p>
-            <p>Recensione: 
-              <span v-for="(starClass, index) in calcReviewStar(result.vote_average)" :key="index">
-                <i :class="starClass"></i>
-              </span> 
-            </p>
+    <div v-if="searchResults.length > 0" id="my_card_container" class="container-fluid">
+      <div class="row justify-content-between">
+        <div v-for="(result, index) in searchResults" :key="index" id="my_col">
+          <div class="card mb-1 border-0">
+
+            <!-- copertina -->
+            <img :src="result.poster_url" alt="" class="card-img poster_img">
+
+            <!-- hover info -->
+            <div class="card_detail">
+              <h2>{{ result.title }}</h2>
+              <p>Titolo in lingua originale: {{ result.original_title }}</p>
+              <p>{{ result.media_type }}</p>
+              <p>Recensione:
+                <span v-for="(starClass, index) in calcReviewStar(result.vote_average)" :key="index">
+                  <i :class="starClass"></i>
+                </span>
+              </p>
+              <div class="my_lang">
+                <img :src="getFlagUrl(result.original_language)" width="36" height="27" >
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
     <div v-else>
       <p>prova ad effettuare una ricerca tramite la navbar</p>
@@ -99,7 +100,48 @@ export default {
 #site_main {
   width: 100%;
   padding: 1rem;
-  border: 1px dashed black;
 
+}
+
+#my_col {
+  width: calc((100% / 12) * 2);
+  height: auto;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+
+  .poster_img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1.5;
+  }
+}
+
+.card_detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  background-color: darkgray;
+  
+
+  h2 {
+    text-align: center;
+  }
+}
+
+.card:hover .card_detail {
+  display: inline
+}
+
+.my_lang{
+  display: flex;
+  justify-content: center;
 }
 </style>

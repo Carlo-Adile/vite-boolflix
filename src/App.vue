@@ -20,14 +20,19 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div id="my_app">
     <Header />
 
     <Main />
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+#my_app{
+  background-color: #282828;
+  min-height: 100vh;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

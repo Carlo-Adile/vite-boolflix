@@ -28,7 +28,9 @@ export default {
       })
         .then(response => {
           console.log(response.data);
-          const results = response.data.results.map(result => ({ 
+          const results = response.data.results
+          .filter(result => result.poster_path)
+          .map(result => ({ 
             ...result, poster_url: result.poster_path ? `https://image.tmdb.org/t/p/w342/${result.poster_path}` : null
           }));
 
@@ -45,16 +47,17 @@ export default {
 
 <template>
   <div id="site_header">
-    <nav class="navbar bg-body-tertiary expand-lg p-4 mx-auto">
+    <nav class="navbar expand-lg p-4 mx-auto ms-2">
       <a href="#" class="navbar-brand">
-        <img src="../assets/vue.svg" alt="logo" width="30" height="24" class="d-inline-block align-text-top">
-        Navbar Logo
+        <img src="../assets/img/boolflix-logo.svg" alt="logo" width="140" height="auto" class="d-inline-block align-text-top">
       </a>
       <!-- form per cercare film -->
       <form role="search" class="d-flex" @submit.prevent="search" id="my_form">
+        <a href="#"><span><i class="fa-solid fa-magnifying-glass"></i></span></a>
         <input v-model="searchQuery" class="form-control me-2" type="search" placeholder="Cerca un film tramite API!"
           aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+        <span><i class="fa-solid fa-magnifying-glass"></i></span>
       </form>
 
     </nav>
@@ -68,8 +71,18 @@ export default {
 }
 
 #my_form{
+  position: relative;
+
   input{
     width: 350px;
+    padding: 0.25rem 1rem 0.25rem 40px;
+  }
+
+  a{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
   }
 }
 
